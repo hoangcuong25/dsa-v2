@@ -1,7 +1,9 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
     private static Scanner scanner = new Scanner(System.in);
+    private static BookManager bookManager = new BookManager();
 
     public static void main(String[] args) throws Exception {
         boolean running = true;
@@ -13,7 +15,7 @@ public class App {
 
             switch (choice) {
                 case 1:
-                    displayBookSubMenu();
+                    bookSubMenu();
                     break;
                 case 2:
                     break;
@@ -57,10 +59,50 @@ public class App {
 
             switch (choice) {
                 case 1:
+                    clearScreen();
+                    bookManager.displayAllBooks();
+
+                    System.out.println("\nPress Enter to continue...");
+                    scanner.nextLine();
                     break;
                 case 2:
+                    clearScreen();
+                    bookManager.displayAllBooks();
+
+                    System.out.print("\n\nEnter a keyword to search for: ");
+                    String keyword = scanner.nextLine();
+
+                    List<Book> result = bookManager.searchBooks(keyword);
+
+                    if (result.isEmpty()) {
+                        System.out.println("No books found.");
+                    } else {
+                        clearScreen();
+                        System.out.println("\n\n========== Search Results ==========");
+                        for (Book book : result) {
+                            book.displayInfo();
+                        }
+                    }
+
+                    System.out.println("\nPress Enter to continue...");
+                    scanner.nextLine();
                     break;
                 case 3:
+                    clearScreen();
+                    System.out
+                            .print("1. Sort by price (ascending)\n2. Sort by price (descending)\nEnter your choice: ");
+                    int option = getchoice();
+
+                    List<Book> sortedBooks = bookManager.sortBooksByPrice(option);
+
+                    clearScreen();
+                    System.out.println("\n\n========== Sorted Books ==========");
+                    for (Book book : sortedBooks) {
+                        book.displayInfo();
+                    }
+
+                    System.out.println("\nPress Enter to continue...");
+                    scanner.nextLine();
                     break;
                 case 4:
                     break;
