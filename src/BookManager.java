@@ -46,19 +46,63 @@ public class BookManager {
         return result;
     }
 
-    public List<Book> sortBooksByPrice(int option) {
-        int n = books.size();
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (books.get(j).getPrice() > books.get(j + 1).getPrice()) {
-                    Book temp = books.get(j);
-                    books.set(j, books.get(j + 1));
-                    books.set(j + 1, temp);
-                }
-            }
-        }
-
-        return books;
+    public List<Book> sortBooksByPrice() {
+        List<Book> sortedBooks = new ArrayList<>(books);
+        mergeSort(sortedBooks, 0, sortedBooks.size() - 1);
+        return sortedBooks;
     }
 
+    public static void mergeSort(List<Book> books, int left, int right) {
+        if (left < right) {
+            int middle = (left + right) / 2;
+
+            mergeSort(books, left, middle);
+            mergeSort(books, middle + 1, right);
+
+            merge(books, left, middle, right);
+        }
+    }
+
+    public static void merge(List<Book> books, int left, int middle, int right) {
+        int s1 = middle - left + 1;
+        int s2 = right - middle;
+
+        List<Book> leftArray = new ArrayList<>();
+        List<Book> rightArray = new ArrayList<>();
+
+        // Copy data to temporary arrays
+        for (int i = 0; i < s1; i++) {
+            leftArray.add(books.get(left + i));
+        }
+        for (int j = 0; j < s2; j++) {
+            rightArray.add(books.get(middle + 1 + j));
+        }
+
+        // Merge the temporary arrays
+        int i = 0, j = 0, k = left;
+        while (i < s1 && j < s2) {
+            if (leftArray.get(i).getPrice() <= rightArray.get(j).getPrice()) {
+                books.set(k, leftArray.get(i));
+                i++;
+            } else {
+                books.set(k, rightArray.get(j));
+                j++;
+            }
+            k++;
+        }
+
+        // Copy remaining elements of leftArray if any
+        while (i < s1) {
+            books.set(k, leftArray.get(i));
+            i++;
+            k++;
+        }
+
+        // Copy remaining elements of rightArray if any
+        while (j < s2) {
+            books.set(k, rightArray.get(j));
+            j++;
+            k++;
+        }
+    }
 }

@@ -93,7 +93,19 @@ public class App {
                             .print("1. Sort by price (ascending)\n2. Sort by price (descending)\nEnter your choice: ");
                     int option = getchoice();
 
-                    List<Book> sortedBooks = bookManager.sortBooksByPrice(option);
+                    List<Book> sortedBooks;
+                    if (option == 1) {
+                        sortedBooks = bookManager.sortBooksByPrice();
+                    } else if (option == 2) {
+                        sortedBooks = bookManager.sortBooksByPrice();
+                        // Reverse the list for descending order
+                        java.util.Collections.reverse(sortedBooks);
+                    } else {
+                        System.out.println("Invalid option!");
+                        System.out.println("\nPress Enter to continue...");
+                        scanner.nextLine();
+                        continue;
+                    }
 
                     clearScreen();
                     System.out.println("\n\n========== Sorted Books ==========");
