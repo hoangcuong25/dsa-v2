@@ -83,27 +83,6 @@ public class Order {
         }
     }
 
-    public void sortBooksByAuthor() {
-        // Selection Sort
-        for (int i = 0; i < books.size() - 1; i++) {
-            int minIdx = i;
-            for (int j = i + 1; j < books.size(); j++) {
-                if (books.get(j).getAuthor().compareTo(books.get(minIdx).getAuthor()) < 0) {
-                    minIdx = j;
-                }
-            }
-            // Swap books
-            Book tempBook = books.get(i);
-            books.set(i, books.get(minIdx));
-            books.set(minIdx, tempBook);
-
-            // Swap quantities
-            int tempQuantity = quantities.get(i);
-            quantities.set(i, quantities.get(minIdx));
-            quantities.set(minIdx, tempQuantity);
-        }
-    }
-
     public void displayOrder() {
         System.out.println("\n===== ORDER DETAILS =====");
         System.out.println("Order ID: " + orderId);

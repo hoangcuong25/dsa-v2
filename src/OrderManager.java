@@ -32,25 +32,6 @@ public class OrderManager {
         }
     }
 
-    public void displayAllOrders() {
-        if (orderQueue.isEmpty() && completedOrders.isEmpty()) {
-            System.out.println("No orders found.");
-            return;
-        }
-
-        System.out.println("\n===== PENDING ORDERS =====");
-        for (Order order : orderQueue) {
-            order.displayOrder();
-            System.out.println("-----------------------");
-        }
-
-        System.out.println("\n===== COMPLETED ORDERS =====");
-        for (Order order : completedOrders) {
-            order.displayOrder();
-            System.out.println("-----------------------");
-        }
-    }
-
     public Order findOrderById(String orderId) {
         // Search in queue
         for (Order order : orderQueue) {
@@ -65,23 +46,6 @@ public class OrderManager {
             }
         }
         return null;
-    }
-
-    public List<Order> searchOrdersByCustomerName(String customerName) {
-        List<Order> results = new ArrayList<>();
-        // Search in queue
-        for (Order order : orderQueue) {
-            if (order.getCustomerName().toLowerCase().contains(customerName.toLowerCase())) {
-                results.add(order);
-            }
-        }
-        // Search in completed orders
-        for (Order order : completedOrders) {
-            if (order.getCustomerName().toLowerCase().contains(customerName.toLowerCase())) {
-                results.add(order);
-            }
-        }
-        return results;
     }
 
     public void displayOrderQueue() {
