@@ -6,13 +6,13 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class OrderManager {
     private Queue<Order> orderQueue;
-    private List<Order> completedOrders;
+    private List<Order> orders;
     private BookManager bookManager;
 
     public OrderManager(BookManager bookManager) {
         this.orderQueue = new LinkedBlockingQueue<>();
-        this.completedOrders = new ArrayList<>();
-        this.bookManager = bookManager;
+        this.orders = new ArrayList<>();
+        this.bookManager = bookManager; 
     }
 
     public Order createOrder(String customerName, String shippingAddress) {
@@ -40,7 +40,7 @@ public class OrderManager {
             }
         }
         // Search in completed orders
-        for (Order order : completedOrders) {
+        for (Order order : orders) {
             if (order.getOrderId().equals(orderId)) {
                 return order;
             }
