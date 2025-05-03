@@ -5,14 +5,15 @@ public class App {
     private static Scanner scanner = new Scanner(System.in);
     private static BookManager bookManager = new BookManager();
     private static OrderManager orderManager = new OrderManager(bookManager);
-    private static UserManager userManager = new UserManager();
     private static Order currentOrder = null;
+    private static User currentUser = null;
+    private static final User DEFAULT_USER = new User("cuong", "123123123", "hoang cuong", "ha noi");
 
     public static void main(String[] args) throws Exception {
         boolean running = true;
 
         while (running) {
-            if (userManager.getCurrentUser() == null) {
+            if (currentUser == null) {
                 if (!loginMenu()) {
                     continue;
                 }
@@ -30,7 +31,7 @@ public class App {
                     orderSubMenu();
                     break;
                 case 3:
-                    userManager.logout();
+                    currentUser = null;
                     continue;
                 case 0:
                     running = false;
@@ -71,7 +72,8 @@ public class App {
         System.out.print("Password: ");
         String password = scanner.nextLine();
 
-        if (userManager.login(username, password)) {
+        if (username.equals(DEFAULT_USER.getUsername()) && password.equals(DEFAULT_USER.getPassword())) {
+            currentUser = DEFAULT_USER;
             System.out.println("\nLogin successful!");
             System.out.println("Press Enter to continue...");
             scanner.nextLine();
@@ -85,11 +87,6 @@ public class App {
     }
 
     private static void displayMainMenu() {
-        User currentUser = userManager.getCurrentUser();
-        if (currentUser == null) {
-            return;
-        }
-
         System.out.println("\n===== MENU Online Bookstore =====\n");
         System.out.println("Welcome, " + currentUser.getFullName() + "!");
         System.out.println("\n1. Books Management");
@@ -232,8 +229,8 @@ public class App {
 
         if (currentOrder == null) {
             currentOrder = orderManager.createOrder(
-                    userManager.getCurrentUser().getFullName(),
-                    userManager.getCurrentUser().getAddress());
+                    currentUser.getFullName(),
+                    currentUser.getAddress());
         }
 
         System.out.println("\nList of available books:");
