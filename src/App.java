@@ -185,6 +185,16 @@ public class App {
         }
     }
 
+    private static void displayOrderSubMenu() {
+        System.out.println("\n===== ORDER MANAGEMENT =====");
+        System.out.println("1. View Order Queue");
+        System.out.println("2. Search Orders");
+        System.out.println("3. View All Orders");
+        System.out.println("0. Back to main menu");
+        System.out.println("=====================");
+        System.out.print("Enter your choice: ");
+    }
+
     private static void orderSubMenu() {
         boolean backToMain = false;
 
@@ -200,6 +210,9 @@ public class App {
                 case 2:
                     searchOrder();
                     break;
+                case 3:
+                    orderManager.displayAllOrders();
+                    break;
                 case 0:
                     backToMain = true;
                     continue;
@@ -212,15 +225,6 @@ public class App {
                 scanner.nextLine();
             }
         }
-    }
-
-    private static void displayOrderSubMenu() {
-        System.out.println("\n===== ORDER MANAGEMENT =====");
-        System.out.println("1. View Order Queue");
-        System.out.println("2. Search Orders");
-        System.out.println("0. Back to main menu");
-        System.out.println("=====================");
-        System.out.print("Enter your choice: ");
     }
 
     private static void addToCartMenu() {

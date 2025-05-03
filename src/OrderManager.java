@@ -12,13 +12,14 @@ public class OrderManager {
     public OrderManager(BookManager bookManager) {
         this.orderQueue = new LinkedBlockingQueue<>();
         this.orders = new ArrayList<>();
-        this.bookManager = bookManager; 
+        this.bookManager = bookManager;
     }
 
     public Order createOrder(String customerName, String shippingAddress) {
         String orderId = UUID.randomUUID().toString().substring(0, 8);
         Order newOrder = new Order(orderId, customerName, shippingAddress);
         orderQueue.add(newOrder);
+        orders.add(newOrder); // Add to orders list as well
         return newOrder;
     }
 
@@ -39,7 +40,7 @@ public class OrderManager {
                 return order;
             }
         }
-        // Search in completed orders
+        // Search in orders list
         for (Order order : orders) {
             if (order.getOrderId().equals(orderId)) {
                 return order;
@@ -61,6 +62,19 @@ public class OrderManager {
             order.displayOrder();
             System.out.println("-----------------------");
             position++;
+        }
+    }
+
+    public void displayAllOrders() {
+        if (orders.isEmpty()) {
+            System.out.println("No orders found.");
+            return;
+        }
+
+        System.out.println("\n===== ALL ORDERS =====");
+        for (Order order : orders) {
+            order.displayOrder();
+            System.out.println("-----------------------");
         }
     }
 }
