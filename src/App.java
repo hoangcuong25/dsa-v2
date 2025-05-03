@@ -300,7 +300,25 @@ public class App {
         String orderId = scanner.nextLine();
         Order order = orderManager.findOrderById(orderId);
         if (order != null) {
-            order.displayOrder();
+            System.out.println("\n1. Display order");
+            System.out.println("2. Sort books by price");
+            System.out.println("0. Back");
+            System.out.print("Enter your choice: ");
+
+            int choice = getchoice();
+            switch (choice) {
+                case 1:
+                    order.displayOrder();
+                    break;
+                case 2:
+                    order.sortBooksByPrice();
+                    order.displayOrder();
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println("Invalid choice.");
+            }
         } else {
             System.out.println("Order not found.");
         }

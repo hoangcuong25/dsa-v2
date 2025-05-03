@@ -66,14 +66,14 @@ public class Order {
         totalPrice += book.getPrice() * quantity;
     }
 
-    public void sortBooksByTitle() {
+    public void sortBooksByPrice() {
         // Insertion Sort
         for (int i = 1; i < books.size(); i++) {
             Book key = books.get(i);
             int keyQuantity = quantities.get(i);
             int j = i - 1;
 
-            while (j >= 0 && books.get(j).getTitle().compareTo(key.getTitle()) > 0) {
+            while (j >= 0 && books.get(j).getPrice() > key.getPrice()) {
                 books.set(j + 1, books.get(j));
                 quantities.set(j + 1, quantities.get(j));
                 j--;
