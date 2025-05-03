@@ -19,7 +19,7 @@ public class OrderManager {
         String orderId = UUID.randomUUID().toString().substring(0, 8);
         Order newOrder = new Order(orderId, customerName, shippingAddress);
         orderQueue.add(newOrder);
-        orders.add(newOrder); // Add to orders list as well
+        orders.add(newOrder);
         return newOrder;
     }
 
@@ -37,12 +37,14 @@ public class OrderManager {
         // Search in queue
         for (Order order : orderQueue) {
             if (order.getOrderId().equals(orderId)) {
+                order.sortBooksByPrice(); // Sort books before returning
                 return order;
             }
         }
         // Search in orders list
         for (Order order : orders) {
             if (order.getOrderId().equals(orderId)) {
+                order.sortBooksByPrice(); // Sort books before returning
                 return order;
             }
         }
@@ -58,6 +60,7 @@ public class OrderManager {
         System.out.println("\n===== ORDER QUEUE =====");
         int position = 1;
         for (Order order : orderQueue) {
+            order.sortBooksByPrice(); // Sort books before displaying
             System.out.println("\nPosition in queue: " + position);
             order.displayOrder();
             System.out.println("-----------------------");
@@ -73,6 +76,7 @@ public class OrderManager {
 
         System.out.println("\n===== ALL ORDERS =====");
         for (Order order : orders) {
+            order.sortBooksByPrice(); // Sort books before displaying
             order.displayOrder();
             System.out.println("-----------------------");
         }

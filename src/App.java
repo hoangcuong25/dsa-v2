@@ -269,6 +269,7 @@ public class App {
                 break;
             case 2:
                 if (currentOrder != null) {
+                    currentOrder.sortBooksByPrice();
                     currentOrder.displayOrder();
                     System.out.println("\nPress Enter to continue...");
                     scanner.nextLine();
@@ -276,6 +277,8 @@ public class App {
                 break;
             case 3:
                 if (currentOrder != null) {
+                    currentOrder.sortBooksByPrice();
+                    currentOrder.displayOrder();
                     System.out.println("\nOrder placed successfully!");
                     currentOrder = null;
                     System.out.println("\nPress Enter to continue...");
