@@ -105,4 +105,13 @@ public class BookManager {
             k++;
         }
     }
+
+    public Book findBookById(String id) {
+        for (Book book : books) {
+            if (book.getId().equals(id)) {
+                return book;
+            }
+        }
+        return null;
+    }
 }
